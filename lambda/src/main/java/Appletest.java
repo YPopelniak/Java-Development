@@ -17,6 +17,9 @@ public class Appletest {
         List<Apple> greenApple = filterList(inventory, new AppleGreenColorPredigate());
         System.out.println(greenApple + "---> green Apple");
 
+        List<Apple> simpleFormat = prettyPrintApple(inventory, new AppleFancyFormatter());
+        System.out.println(simpleFormat);
+
     }
     private static List<Apple> filterList(List<Apple> inventory, ApplePredigate applePredigate) {
 
@@ -26,6 +29,16 @@ public class Appletest {
             if (applePredigate.test(apple)){
                 result.add(apple);
             }
+        }
+        return result;
+    }
+
+    public static List<Apple> prettyPrintApple(List<Apple> inventory, AppleFormatter formatter){
+        List<Apple> result = new ArrayList<>();
+        for(Apple apple : inventory){
+            String output = formatter.accept(apple);
+            result.add(apple);
+            System.out.println(output);
         }
         return result;
     }
