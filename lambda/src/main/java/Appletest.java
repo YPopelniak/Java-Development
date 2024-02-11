@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+
 
 public class Appletest {
     public static void main(String[] args) {
@@ -17,8 +19,9 @@ public class Appletest {
         List<Apple> greenApple = filterList(inventory, new AppleGreenColorPredigate());
         System.out.println(greenApple + "---> green Apple");
 
-        List<Apple> simpleFormat = prettyPrintApple(inventory, new AppleFancyFormatter());
-        System.out.println(simpleFormat);
+//        List<Apple> simpleFormat = prettyPrintApple(inventory, new AppleFancyFormatter());
+//        System.out.println(simpleFormat);
+        prettyPrintApple(inventory, apples -> true );
 
     }
     private static List<Apple> filterList(List<Apple> inventory, ApplePredigate applePredigate) {
@@ -33,14 +36,10 @@ public class Appletest {
         return result;
     }
 
-    public static List<Apple> prettyPrintApple(List<Apple> inventory, AppleFormatter formatter){
-        List<Apple> result = new ArrayList<>();
+    public static void prettyPrintApple(List<Apple> inventory, Predicate<Apple> pr){
         for(Apple apple : inventory){
-            String output = formatter.accept(apple);
-            result.add(apple);
-            System.out.println(output);
+            if(pr.test(apple)) System.out.println( apple.toString() + " Functionall Interface ");
         }
-        return result;
     }
 }
 
