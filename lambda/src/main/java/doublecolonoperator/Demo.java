@@ -1,5 +1,9 @@
 package doublecolonoperator;
 
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 public class Demo {
 
     public static void main(String[] args) {
@@ -21,6 +25,24 @@ public class Demo {
 
         Calculate m3 = new Calculator()::findMultiple;
         m3.calculate(6,6);
+
+        BiFunction<String,Integer,String> fn = (str,i) -> str.substring(i);
+        System.out.println(fn.apply("Developer",6));
+
+        BiFunction<String,Integer,String> fn2 = String::substring;
+        System.out.println(fn2.apply("Developer",6));
+
+        Consumer<Integer> display = i -> System.out.println(i);
+        display.accept(20);
+
+        Consumer<Integer> display1 = System.out::println;
+        display1.accept(50);
+
+        BiFunction<MyClass,Integer,Double> v2 = MyClass::method;
+
+        BiFunction<String,String,String> v3 = String::concat;
+                          //what string accept, what does in return
+
 
     }
 }

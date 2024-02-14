@@ -43,6 +43,14 @@ public class Examples {
         Double db =  randomValue.get();
         System.out.println(db);
 
+        Predicate<Integer> pred = (p) -> p % 2 == 0;
+        System.out.println(pred.test(10));
+
+        BiConsumer<Integer,String> bn = (x,y) -> System.out.println(x+y);
+        bn.accept(10,"Apple");
+
+
+
 
         }
     }

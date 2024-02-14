@@ -6,6 +6,7 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
+@Data
 public class Orange {
 
     private int weight;

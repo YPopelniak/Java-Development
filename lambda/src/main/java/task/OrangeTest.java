@@ -2,6 +2,7 @@ package task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class OrangeTest {
 
@@ -17,26 +18,23 @@ public class OrangeTest {
         OrangeFormatter simpleFormatter = orange -> "An orange of " + orange.getWeight() + "g";
 //        prettyPrintApple(inventory,simpleFormatter);
 
-        prettyPrintApple(inventory,orange -> "An orange of " + orange.getWeight() + "g");
+       // prettyPrintOrange(inventory =  orange -> "An orange of " + orange + "g");
 
         System.out.println("*************");
 
-        OrangeFormatter fancyFormatter = orange -> {
-            String characteristic = orange.getWeight()>150 ? "Heavy" : "Light";
-            return "A " + characteristic + " " + orange.getColor() + " orange";
-        };
-
-        prettyPrintApple(inventory,fancyFormatter);
+        Predicate<Orange> heavyOrangePredicate = orange -> orange.getWeight() > 150;
+        Predicate<Orange> lightOrangePredicate = orange -> orange.getWeight() <= 150;
 
 
+        prettyPrintOrange(inventory, heavyOrangePredicate, "Heavy");
+        prettyPrintOrange(inventory, lightOrangePredicate, "Light");
     }
 
-
-    // Convert to FUNCTIONAL INTERFACE
-    private static void prettyPrintApple(List<Orange> inventory,OrangeFormatter orangeFormatter){
-        for(Orange orange : inventory){
-            String output = orangeFormatter.accept(orange);
-            System.out.println(output);
+    private static void prettyPrintOrange(List<Orange> inventory, Predicate<Orange> orangePredicate, String characteristic) {
+        for (Orange orange : inventory) {
+            if (orangePredicate.test(orange)) {
+                System.out.println("A " + characteristic + " " + orange.getColor() + " orange");
+            }
         }
     }
 }
